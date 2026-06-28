@@ -1,34 +1,33 @@
 
 const boton = document.querySelector('button');
 const botonCompartir = document.getElementById('boton-compartir');
-const contador = document.getElementById('contador-monedas');
-let monedas = 0;
 
-// Botón verde
+// Botón verde: Aviso de validación (el contador ya no suma solo)
 boton.addEventListener('click', () => {
-  if (monedas < 4000) {
-    monedas += 10;
-    contador.textContent = monedas;
-    
-    if (monedas >= 4000) {
-      alert("¡Felicidades! Has llegado a la meta.");
-      const idFreeFire = prompt("Escribe tu ID de Free Fire:");
-      const nombreJugador = prompt("Escribe tu nombre:");
-      
-      if (idFreeFire && nombreJugador) {
-        alert("¡Gracias, " + nombreJugador + "! Solicitud recibida.");
-        
-        // AQUÍ FORZAMOS EL REINICIO SIN NECESIDAD DE REFRESCAR
-        monedas = 0;
-        contador.textContent = monedas;
-      }
+  alert("¡Nivel en revisión por el equipo de GARVECOF!");
+});
+
+// Botón naranja: Sistema de Referidos Profesional
+botonCompartir.addEventListener('click', () => {
+  const idJugador = prompt("Ingresa TU ID de jugador para generar tu enlace de invitación:");
+ 
+  if (idJugador) {
+    // Aquí creamos un enlace especial que incluye el ID del que invita
+    const enlaceInvitacion = window.location.href + "?invitadoPor=" + idJugador;
+   
+    // Compartir el enlace personalizado
+    if (navigator.share) {
+      navigator.share({
+        title: '¡Gana 50 diamantes en Garvécof!',
+        text: 'Ayúdame a completar mi misión en Garvécof con mi ID: ' + idJugador,
+        url: enlaceInvitacion
+      }).catch(console.error);
+    } else {
+      alert("Copia y comparte este enlace con tu amigo:\n" + enlaceInvitacion);
     }
+   
+    alert("¡Enlace generado! Cuando tu amigo llegue a 4000 monedas usando este enlace, recibirás tus 50 diamantes.");
   }
 });
 
-// Botón naranja
-botonCompartir.addEventListener('click', () => {
-  monedas += 100;
-  contador.textContent = monedas;
-  alert("¡Has ganado 100 monedas extra!");
-});
+ 
