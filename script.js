@@ -13,8 +13,8 @@ botonCompartir.addEventListener('click', () => {
  
   if (idJugador) {
     // Aquí creamos un enlace especial que incluye el ID del que invita
-    const enlaceInvitacion = "https://script.google.com/macros/s/TU_CODIGO".../exec"+"?invitadopor=" + idjugador;AKfycbxpzU6UlK9OMnAM1yLW0FcQd3x_hTkzc-9W3SqjGSiRsfVCMoiXcfrAvQfy3ZEdVCKA/exec+ "?invitadoPor=" + idJugador;
-    // Compartir el enlace personalizado
+   
+    const enlaceInvitacion = "https://script.google.com/macros/s/TU_CODIGO"/exec"+"?invitadopor=" + idjugador;AKfycbxpzU6UlK9OMnAM1yLW0FcQd3x_hTkzc-9W3SqjGSiRsfVCMoiXcfrAvQfy3ZEdVCKA/exec+ "?invitadoPor=" + idJugador; // Compartir el enlace personalizado
     if (navigator.share) {
       navigator.share({
         title: '¡Gana 50 diamantes en Garvécof!',
