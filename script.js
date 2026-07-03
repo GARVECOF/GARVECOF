@@ -1,4 +1,4 @@
-const urlBase = 'https://script.google.com/macros/s/AKfycby2JI5-fKMXyhhc367uTC-Iv2UBR6oU1nhAQP26z5RMqRgQwt2QBoeoeAnnENFSuLwk/exec';
+const urlBase = 'https://script.google.com/macros/s/AKfycby2Jl5-fKMXyhnc367uTC-Iv2UBR6oUInhAQP26z5RMqRgQwt2QBoeoeAnnENFSuLwk/exec';
 
 function compartirConReglas() {
     // 1. Mostrar la advertencia legal primero
