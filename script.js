@@ -1,35 +1,42 @@
-const urlBase = 'https://script.google.com/macros/s/AKfycby2Jl5-fKMXyhnc367uTC-Iv2UBR6oUInhAQP26z5RMqRgQwt2QBoeoeAnnENFSuLwk/exec';
+// Lógica de juego Garvécof
+let totalMonedas = parseInt(localStorage.getItem('totalMonedas') || 0);
 
-function compartirConReglas() {
-    // 1. Mostrar la advertencia legal primero
-    let acepto = confirm("¡IMPORTANTE!\n\nPara recibir tus 100 rosas (TikTok) o 100 diamantes (Free Fire) por compartir, tu invitado DEBE completar el reto de las 4000 monedas dentro de la aplicación.\n\n¿Estás de acuerdo con esta condición?");
-   
-    if (!acepto) {
-        alert("Lo sentimos, si no aceptas la condición no podemos procesar tu recompensa.");
-        return; // Aquí cancelamos el proceso si no aceptan
-    }
-
-    // 2. Si aceptó, pedimos los datos
-    let redSocial = prompt("¿Red social de donde invitas? (TikTok/FreeFire)");
-    let miUsuario = prompt("¿Cuál es tu nombre de usuario?");
-    let miID = prompt("¿Cuál es tu ID de jugador?");
-    let idInvitado = prompt("Ingresa el ID de la persona que invitaste (El pago depende de que este ID complete el reto):");
-
-    if (!redSocial || !miUsuario || !miID || !idInvitado) {
-        alert("Error: Debes completar todos los campos.");
-        return;
-    }
-
-    // 3. Enviamos los datos
-    const urlFinal = `${urlBase}?idPrincipal=${miID}&idSecundario=${miUsuario}&invitado=${idInvitado}&tipo=INVITACION_${redSocial.toUpperCase()}`;
-
-    fetch(urlFinal, { method: 'GET' })
-        .then(res => res.text())
-        .then(data => {
-            alert("¡Registro exitoso! Mantendremos tu ID en espera hasta que tu invitado (" + idInvitado + ") complete el reto de las 4000 monedas.");
-        })
-        .catch(error => alert("Error al enviar, intenta de nuevo."));
+function actualizarPantalla() {
+    document.getElementById('contador-monedas').innerText = totalMonedas;
+    document.getElementById('barra-progreso').style.width = (totalMonedas / 4000 * 100) + '%';
 }
+
+// Esta función la llamas cada vez que el usuario gana monedas jugando
+function sumarMonedas(cantidad) {
+    totalMonedas += cantidad;
+    localStorage.setItem('totalMonedas', totalMonedas);
+    actualizarPantalla();
+   
+    if (totalMonedas >= 4000) {
+        alert("¡Felicidades! Has completado las 4000 monedas. Haz clic en 'Canjear' para recibir tu tarjeta.");
+    }
+}
+
+// Cuando el usuario le da al botón "Canjear"
+async function canjearPremio() {
+    if (totalMonedas < 4000) return alert("Aún no tienes 4000 monedas.");
+   
+    // Registrar en la hoja de cálculo
+    const datos = { usuario: "Usuario_Actual", monto: 1, tipo: "Canje_Efectivo_o_Digital" };
+    await fetch('TU_URL_GOOGLE_APPS_SCRIPT', {
+        method: 'POST',
+        body: JSON.stringify(datos)
+    });
+   
+    alert("¡Aquí tienes tu tarjeta de $1! Puedes usarla para lo que desees.");
+    // Aquí mostrarías la imagen de la tarjeta
+    totalMonedas = 0; // Reiniciar
+    localStorage.setItem('totalMonedas', 0);
+    actualizarPantalla();
+}
+
+ 
+
 
  
 
