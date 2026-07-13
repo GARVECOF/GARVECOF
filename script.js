@@ -1,23 +1,31 @@
-// Esta función es la que deberías llamar justo después de alcanzar las 4000 monedas
-async function registrarRetiroFinal() {
-    const datos = {
-        ingreso: 4,
-        gasto: 1,
-        fecha: new Date().toLocaleString()
-    };
+const { Lithic } = require('lithic');
 
-    try {
-        const respuesta = await fetch("https://script.google.com/macros/s/AKfycbyzPlse7M3IKPs3hXUKHFshdn8rDQt8ykTquca0Tl9gPiOBg0erVA1wbRh5c45dajj/exec", {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(datos)
-        });
-        console.log("Registro de los $4 y el gasto de $1 enviado exitosamente.");
-    } catch (e) {
-        console.error("Error al registrar el retiro final:", e);
-    }
+const lithic = new Lithic({
+  apiKey: "2d1191f3-8cec-49eb-8afa-b9c133dd4e21",
+  environment: "sandbox"
+});
+
+async function crearTarjeta() {
+  try {
+    const card_params = {
+      type: "VIRTUAL"
+    };
+   
+    const card = await lithic.cards.create(card_params);
+    console.log("¡Éxito! Tarjeta creada:", card);
+  } catch (error) {
+    console.error("Hubo un error al crear la tarjeta:", error);
+  }
 }
+
+crearTarjeta();
+
+ 
+
+
+
+
+
 
  
 
